@@ -5,7 +5,7 @@
 $host = "localhost";
 $username = "root";
 $password = ""; // Sesuaikan dengan password MySQL Anda
-$dbname = "utswebproswu";
+$dbname = "webproswusalsa";
 
 // Membuat koneksi ke database
 $conn = new mysqli($host, $username, $password, $dbname);
@@ -19,15 +19,26 @@ if ($conn->connect_error) {
 $new_username = $_POST['username'];
 $new_password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Enkripsi password
 
-// Menyimpan data ke database
-$sql = "INSERT INTO admin (username, password) VALUES ('$new_username', '$new_password')";
+// Menyimpan data ke database dengan prepared statement
+$sql = "INSERT INTO admin (username, password) VALUES (?, ?)";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("ss", $new_username, $new_password);
 
-if ($conn->query($sql) === TRUE) {
-    echo "Registrasi berhasil. Silakan <a href='index.php'>login</a>.";
+if ($stmt->execute()) {
+    // Alert berhasil dan redirect
+    echo "<script>
+        alert('Registrasi berhasil! Anda akan diarahkan ke halaman login.');
+        window.location.href = 'login.php';
+    </script>";
 } else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
+    // Pesan error jika gagal
+    echo "<script>
+        alert('Registrasi gagal: " . addslashes($stmt->error) . "');
+        window.history.back();
+    </script>";
 }
 
 // Menutup koneksi
+$stmt->close();
 $conn->close();
 ?>

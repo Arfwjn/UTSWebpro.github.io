@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($conn->query($sql) === TRUE) {
         echo "Data berhasil disimpan.";
-        echo "<a href='list_loker.php'Lihat Data Wisata.</a>";
+        echo "<a href='list_loker.php'>Lihat Data Loker.</a>";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
@@ -52,40 +52,27 @@ include "header.php";
 include "sidebar.php";
 ?>
 
-<main class="app-main"> <!--begin::App Content Header-->
-    <div class="app-content-header"> <!--begin::Container-->
-        <div class="container-fluid"> <!--begin::Row-->
-            <div class="row">
-                <div class="col-sm-6">
-                    <h3 class="mb-0">Dashboard</h3>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-end">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">
-                            Dashboard
-                        </li>
-                    </ol>
-                </div>
-            </div> <!--end::Row-->
-        </div> <!--end::Container-->
-    </div> <!--end::App Content Header--> <!--begin::App Content-->
-    <div class="app-content"> <!--begin::Container-->
-        <div class="container-fluid"> <!--begin::Row-->
-            <div class="row"> <!--begin::Col-->
-    <h1>Form Input Data Loker</h1>
-    <form action="data_loker.php" method="post" enctype="multipart/form-data">
-        <label for="nama_loker">Nama Perusahaan:</label>
-        <input type="text" id="nama_loker" name="nama_loker" required><br><br>
+<!--begin::App Content-->
+<div class="app-content loker-content"> <!--begin::Container-->
+    <div class="container-fluid"> <!--begin::Row-->
+        <div class="row"> <!--begin::Col-->
+            <h1 class="loker-heading">Form Input Data Loker</h1>
+            <form action="data_loker.php" method="post" enctype="multipart/form-data" class="loker-form">
+                <label for="nama_loker" class="loker-label">Nama Perusahaan:</label>
+                <input type="text" id="nama_loker" name="nama_loker" class="loker-input" required><br><br>
 
-        <label for="deskripsi">Deskripsi:</label>
-        <textarea id="deskripsi" name="deskripsi" rows="5" required></textarea><br><br>
+                <label for="deskripsi" class="loker-label">Deskripsi:</label>
+                <textarea id="deskripsi" name="deskripsi" rows="5" class="loker-textarea" required></textarea><br><br>
 
-        <label for="foto">Foto:</label>
-        <input type="file" id="foto" name="foto" accept="image/*" required><br><br>
+                <label for="foto" class="loker-label">Foto:</label>
+                <input type="file" id="foto" name="foto" class="loker-file" accept="image/*" required><br><br>
 
-        <button type="submit">Simpan</button>
-    </form>
+                <button type="submit" class="loker-submit-btn">Simpan</button>
+            </form>
+        </div>
+    </div>
+</div>
+<!--end::App Content-->
 
 <?php
 include "footer.php";
